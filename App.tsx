@@ -1,12 +1,12 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import App from './src/App';
+import { HomeScreen } from './src/screens/HomeScreen';
 
 export default function Main() {
   return (
     <PaperProvider>
-      <App />
+      <HomeScreen />
     </PaperProvider>
   );
 }
