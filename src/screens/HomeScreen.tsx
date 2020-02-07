@@ -5,10 +5,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 interface IProps {
   theme: Theme;
+  navigation: any; // TODO: type the navigation prop
 }
 
 const HomeScreen: FunctionComponent<IProps> = (props: IProps) => {
-  const { theme } = props;
+  const { theme, navigation } = props;
 
   return (
     <View
@@ -34,6 +35,7 @@ const HomeScreen: FunctionComponent<IProps> = (props: IProps) => {
             contentStyle={styles.buttonContent}
             mode="contained"
             color={theme.colors.surface}
+            onPress={() => navigation.navigate('NewGame')}
           >
             New Game
           </Button>
