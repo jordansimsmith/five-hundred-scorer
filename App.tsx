@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen';
 import NewGameScreen from './src/screens/NewGameScreen';
+import HeaderBar from './src/components/HeaderBar';
 
 const Stack = createStackNavigator();
 
@@ -13,9 +14,17 @@ const App: FunctionComponent<void> = () => {
     <PaperProvider>
       <StatusBar barStyle="dark-content" />
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="NewGame" component={NewGameScreen} />
+        <Stack.Navigator screenOptions={{ header: HeaderBar }}>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="NewGame"
+            component={NewGameScreen}
+            options={{ title: 'Start a New Game' }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
