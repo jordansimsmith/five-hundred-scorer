@@ -7,6 +7,7 @@ import {
   Theme,
   withTheme,
 } from 'react-native-paper';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface IProps {
   theme: Theme;
@@ -42,7 +43,7 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAwareScrollView style={styles.container}>
       <View style={styles.groupingContainer}>
         <Subheading>Team 1</Subheading>
         <TextInput
@@ -92,7 +93,7 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
           Start
         </Button>
       </TouchableOpacity>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 
