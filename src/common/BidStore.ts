@@ -28,7 +28,12 @@ export class StaticBidStore implements IBidStore {
   }
 
   public oneBid(id: number): IBid {
-    return StaticBidStore.bids.get(id);
+    const bid: IBid | undefined = StaticBidStore.bids.get(id);
+    if (bid === undefined) {
+      throw new Error(`bid with id ${id} not found`);
+    }
+
+    return bid;
   }
 
   public updateBid(bid: IBid): void {
