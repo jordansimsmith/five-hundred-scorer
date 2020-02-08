@@ -1,5 +1,5 @@
 import React, { useState, FunctionComponent } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import {
   Button,
   Subheading,
@@ -42,52 +42,71 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
   };
 
   return (
-    <View>
-      <Subheading>Team 1</Subheading>
-      <TextInput
-        onChangeText={(text: string) =>
-          handleInputChange({ name: 'teamOnePlayerOne', value: text })
-        }
-        value={input.teamOnePlayerOne}
-        mode="outlined"
-        placeholder="Player one"
-        label="Player one"
-      />
-      <TextInput
-        onChangeText={(text: string) =>
-          handleInputChange({ name: 'teamOnePlayerTwo', value: text })
-        }
-        value={input.teamOnePlayerTwo}
-        mode="outlined"
-        placeholder="Player two"
-        label="Player two"
-      />
+    <View style={styles.container}>
+      <View style={styles.groupingContainer}>
+        <Subheading>Team 1</Subheading>
+        <TextInput
+          onChangeText={(text: string) =>
+            handleInputChange({ name: 'teamOnePlayerOne', value: text })
+          }
+          value={input.teamOnePlayerOne}
+          mode="outlined"
+          placeholder="Player one"
+          label="Player one"
+        />
+        <TextInput
+          onChangeText={(text: string) =>
+            handleInputChange({ name: 'teamOnePlayerTwo', value: text })
+          }
+          value={input.teamOnePlayerTwo}
+          mode="outlined"
+          placeholder="Player two"
+          label="Player two"
+        />
+      </View>
 
-      <Subheading>Team 1</Subheading>
-      <TextInput
-        onChangeText={(text: string) =>
-          handleInputChange({ name: 'teamTwoPlayerOne', value: text })
-        }
-        value={input.teamTwoPlayerOne}
-        mode="outlined"
-        placeholder="Player one"
-        label="Player one"
-      />
-      <TextInput
-        onChangeText={(text: string) =>
-          handleInputChange({ name: 'teamTwoPlayerTwo', value: text })
-        }
-        value={input.teamTwoPlayerTwo}
-        mode="outlined"
-        placeholder="Player two"
-        label="Player two"
-      />
+      <View style={styles.groupingContainer}>
+        <Subheading>Team 2</Subheading>
+        <TextInput
+          onChangeText={(text: string) =>
+            handleInputChange({ name: 'teamTwoPlayerOne', value: text })
+          }
+          value={input.teamTwoPlayerOne}
+          mode="outlined"
+          placeholder="Player one"
+          label="Player one"
+        />
+        <TextInput
+          onChangeText={(text: string) =>
+            handleInputChange({ name: 'teamTwoPlayerTwo', value: text })
+          }
+          value={input.teamTwoPlayerTwo}
+          mode="outlined"
+          placeholder="Player two"
+          label="Player two"
+        />
+      </View>
 
-      <Button mode="contained">Start</Button>
+      <TouchableOpacity>
+        <Button contentStyle={styles.buttonContent} mode="contained">
+          Start
+        </Button>
+      </TouchableOpacity>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  groupingContainer: {
+    marginBottom: 40,
+  },
+  buttonContent: {
+    height: 50,
+  },
+});
 
 export default withTheme(NewGameScreen);
