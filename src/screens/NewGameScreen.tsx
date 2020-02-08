@@ -1,5 +1,5 @@
 import React, { useState, FunctionComponent } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 import {
   Button,
   Subheading,
@@ -82,7 +82,6 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
           }
           value={input.teamOnePlayerOne}
           mode="outlined"
-          placeholder="Player one"
           label="Player one"
         />
         <HelperText
@@ -97,7 +96,6 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
           }
           value={input.teamOnePlayerTwo}
           mode="outlined"
-          placeholder="Player two"
           label="Player two"
         />
         <HelperText
@@ -116,7 +114,6 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
           }
           value={input.teamTwoPlayerOne}
           mode="outlined"
-          placeholder="Player one"
           label="Player one"
         />
         <HelperText
@@ -131,7 +128,6 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
           }
           value={input.teamTwoPlayerTwo}
           mode="outlined"
-          placeholder="Player two"
           label="Player two"
         />
         <HelperText
