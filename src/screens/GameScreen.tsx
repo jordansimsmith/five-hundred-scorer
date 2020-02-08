@@ -16,6 +16,8 @@ interface IProps {
 }
 
 const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
+  const { navigation } = props;
+
   const {
     teamOnePlayerOne,
     teamOnePlayerTwo,
@@ -56,7 +58,11 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
       </DataTable>
 
       <TouchableOpacity>
-        <Button style={styles.buttonContent} mode="contained">
+        <Button
+          style={styles.buttonContent}
+          mode="contained"
+          onPress={() => navigation.navigate('NewBid')}
+        >
           New Bid
         </Button>
       </TouchableOpacity>

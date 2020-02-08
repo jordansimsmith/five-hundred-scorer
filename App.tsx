@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen';
 import NewGameScreen from './src/screens/NewGameScreen';
 import GameScreen from './src/screens/GameScreen';
+import NewBidScreen from './src/screens/NewBidScreen';
 import HeaderBar from './src/components/HeaderBar';
 
 const Stack = createStackNavigator();
@@ -30,6 +31,11 @@ const App: FunctionComponent<void> = () => {
             name="Game"
             component={GameScreen}
             options={{ title: 'Current Game' }}
+          />
+          <Stack.Screen
+            name="NewBid"
+            component={NewBidScreen}
+            options={{ title: 'Create or Edit a Bid' }}
           />
         </Stack.Navigator>
       </NavigationContainer>
