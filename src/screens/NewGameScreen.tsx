@@ -1,5 +1,5 @@
 import React, { useState, FunctionComponent } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import {
   Button,
   Subheading,
@@ -53,11 +53,35 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
         placeholder="Player one"
         label="Player one"
       />
-      <TextInput />
+      <TextInput
+        onChangeText={(text: string) =>
+          handleInputChange({ name: 'teamOnePlayerTwo', value: text })
+        }
+        value={input.teamOnePlayerTwo}
+        mode="outlined"
+        placeholder="Player two"
+        label="Player two"
+      />
 
       <Subheading>Team 1</Subheading>
-      <TextInput />
-      <TextInput />
+      <TextInput
+        onChangeText={(text: string) =>
+          handleInputChange({ name: 'teamTwoPlayerOne', value: text })
+        }
+        value={input.teamTwoPlayerOne}
+        mode="outlined"
+        placeholder="Player one"
+        label="Player one"
+      />
+      <TextInput
+        onChangeText={(text: string) =>
+          handleInputChange({ name: 'teamTwoPlayerTwo', value: text })
+        }
+        value={input.teamTwoPlayerTwo}
+        mode="outlined"
+        placeholder="Player two"
+        label="Player two"
+      />
 
       <Button mode="contained">Start</Button>
     </View>
