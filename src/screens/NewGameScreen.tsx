@@ -4,6 +4,7 @@ import {
   Button,
   Subheading,
   TextInput,
+  HelperText,
   Theme,
   withTheme,
 } from 'react-native-paper';
@@ -11,6 +12,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 interface IProps {
   theme: Theme;
+  navigation: any;
 }
 
 interface IFormData {
@@ -18,6 +20,7 @@ interface IFormData {
   teamOnePlayerTwo: string;
   teamTwoPlayerOne: string;
   teamTwoPlayerTwo: string;
+  submitted: boolean;
 }
 
 interface ITextChangeEvent {
@@ -26,11 +29,14 @@ interface ITextChangeEvent {
 }
 
 const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
+  const { navigation } = props;
+
   const initialState: IFormData = {
     teamOnePlayerOne: '',
     teamOnePlayerTwo: '',
     teamTwoPlayerOne: '',
     teamTwoPlayerTwo: '',
+    submitted: false,
   };
 
   const [input, setInput] = useState<IFormData>(initialState);
@@ -42,6 +48,26 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
     });
   };
 
+  const handleSubmit = () => {
+    setInput({ ...input, submitted: true });
+
+    // check for blank player names
+    if (
+      !input.teamOnePlayerOne ||
+      !input.teamOnePlayerTwo ||
+      !input.teamTwoPlayerOne ||
+      !input.teamTwoPlayerTwo
+    ) {
+      return;
+    }
+
+    // all names are filled
+    // navigate to game screen with player details
+    setInput({ ...input, submitted: false });
+    navigation.navigate('Game', input);
+  };
+
+  // TODO: refactor input into reusable component
   return (
     <KeyboardAwareScrollView style={styles.container}>
       <View style={styles.groupingContainer}>
@@ -55,6 +81,12 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
           placeholder="Player one"
           label="Player one"
         />
+        <HelperText
+          type="error"
+          visible={input.submitted && !input.teamOnePlayerOne}
+        >
+          Player name cannot be blank
+        </HelperText>
         <TextInput
           onChangeText={(text: string) =>
             handleInputChange({ name: 'teamOnePlayerTwo', value: text })
@@ -64,6 +96,12 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
           placeholder="Player two"
           label="Player two"
         />
+        <HelperText
+          type="error"
+          visible={input.submitted && !input.teamOnePlayerTwo}
+        >
+          Player name cannot be blank
+        </HelperText>
       </View>
 
       <View style={styles.groupingContainer}>
@@ -77,6 +115,12 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
           placeholder="Player one"
           label="Player one"
         />
+        <HelperText
+          type="error"
+          visible={input.submitted && !input.teamTwoPlayerOne}
+        >
+          Player name cannot be blank
+        </HelperText>
         <TextInput
           onChangeText={(text: string) =>
             handleInputChange({ name: 'teamTwoPlayerTwo', value: text })
@@ -86,10 +130,20 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
           placeholder="Player two"
           label="Player two"
         />
+        <HelperText
+          type="error"
+          visible={input.submitted && !input.teamTwoPlayerTwo}
+        >
+          Player name cannot be blank
+        </HelperText>
       </View>
 
       <TouchableOpacity>
-        <Button contentStyle={styles.buttonContent} mode="contained">
+        <Button
+          contentStyle={styles.buttonContent}
+          mode="contained"
+          onPress={handleSubmit}
+        >
           Start
         </Button>
       </TouchableOpacity>
