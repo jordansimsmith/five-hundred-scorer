@@ -7,6 +7,7 @@ import {
   Theme,
   withTheme,
 } from 'react-native-paper';
+import GameRow, { Suit } from '../components/GameRow';
 
 interface IProps {
   theme: Theme;
@@ -21,6 +22,17 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
     teamTwoPlayerOne,
     teamTwoPlayerTwo,
   } = props.route.params;
+
+  const bids = [
+    {
+      bidAmount: 6,
+      bidSuit: Suit.Hearts,
+      team: 1,
+      teamOnePoints: 100,
+      teamTwoPoints: 40,
+      success: true,
+    },
+  ];
 
   return (
     <View style={styles.container}>
@@ -38,12 +50,9 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
           </DataTable.Title>
         </DataTable.Header>
 
-        <DataTable.Row>
-          <DataTable.Cell style={styles.tableCell}>6 Spades</DataTable.Cell>
-          <DataTable.Cell style={styles.tableCell}>40</DataTable.Cell>
-          <DataTable.Cell style={styles.tableCell}></DataTable.Cell>
-          <DataTable.Cell style={styles.tableCell}>20</DataTable.Cell>
-        </DataTable.Row>
+        {bids.map((bid, i) => (
+          <GameRow key={i} {...bid} />
+        ))}
       </DataTable>
 
       <TouchableOpacity>
