@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import {
   Button,
@@ -9,6 +9,7 @@ import {
   withTheme,
 } from 'react-native-paper';
 import GameRow from '../components/GameRow';
+import { IBidStore, StaticBidStore, IBid } from '../common/BidStore';
 import { Suit } from '../enums/enums';
 
 interface IProps {
@@ -38,6 +39,12 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
     },
   ];
 
+  const [state, setState] = useState({});
+  const bidStore: IBidStore = new StaticBidStore();
+  const refreshBidList = () => setState({});
+
+  console.log(bidStore.allBids());
+
   return (
     <View style={styles.container}>
       <Surface style={styles.surface}>
@@ -65,7 +72,7 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
         <Button
           style={styles.buttonContent}
           mode="contained"
-          onPress={() => navigation.navigate('NewBid')}
+          onPress={() => navigation.navigate('NewBid', { refreshBidList })}
         >
           New Bid
         </Button>
