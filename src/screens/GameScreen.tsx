@@ -4,6 +4,7 @@ import {
   Button,
   DataTable,
   Subheading,
+  Surface,
   Theme,
   withTheme,
 } from 'react-native-paper';
@@ -38,24 +39,26 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
 
   return (
     <View style={styles.container}>
-      <DataTable style={styles.dataTable}>
-        <DataTable.Header>
-          <DataTable.Title style={styles.tableCell}>
-            <Subheading>
-              {`${teamOnePlayerOne} & ${teamOnePlayerTwo}`}
-            </Subheading>
-          </DataTable.Title>
-          <DataTable.Title style={styles.tableCell}>
-            <Subheading>
-              {`${teamTwoPlayerOne} & ${teamTwoPlayerTwo}`}
-            </Subheading>
-          </DataTable.Title>
-        </DataTable.Header>
+      <Surface style={styles.surface}>
+        <DataTable>
+          <DataTable.Header>
+            <DataTable.Title style={styles.tableCell}>
+              <Subheading>
+                {`${teamOnePlayerOne} & ${teamOnePlayerTwo}`}
+              </Subheading>
+            </DataTable.Title>
+            <DataTable.Title style={styles.tableCell}>
+              <Subheading>
+                {`${teamTwoPlayerOne} & ${teamTwoPlayerTwo}`}
+              </Subheading>
+            </DataTable.Title>
+          </DataTable.Header>
 
-        {bids.map((bid, i) => (
-          <GameRow key={i} {...bid} />
-        ))}
-      </DataTable>
+          {bids.map((bid, i) => (
+            <GameRow key={i} {...bid} />
+          ))}
+        </DataTable>
+      </Surface>
 
       <TouchableOpacity>
         <Button
@@ -73,11 +76,13 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
   },
-  dataTable: {
+  surface: {
     flex: 1,
     justifyContent: 'flex-start',
+    padding: 10,
+    marginBottom: 10,
   },
   tableCell: {
     justifyContent: 'center',
