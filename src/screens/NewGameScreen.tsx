@@ -70,7 +70,10 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
 
   // TODO: refactor input into reusable component
   return (
-    <KeyboardAwareScrollView style={styles.container}>
+    <KeyboardAwareScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
       <Surface style={styles.surface}>
         <Subheading>Team 1</Subheading>
         <TextInput
@@ -157,7 +160,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
+  contentContainer: {
+    flexGrow: 1,
+  },
   surface: {
+    flexGrow: 1,
     padding: 10,
     marginBottom: 10,
   },
