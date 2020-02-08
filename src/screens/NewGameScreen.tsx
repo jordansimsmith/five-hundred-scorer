@@ -5,6 +5,7 @@ import {
   Subheading,
   TextInput,
   HelperText,
+  Surface,
   Theme,
   withTheme,
 } from 'react-native-paper';
@@ -32,10 +33,10 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
   const { navigation } = props;
 
   const initialState: IFormData = {
-    teamOnePlayerOne: '',
-    teamOnePlayerTwo: '',
-    teamTwoPlayerOne: '',
-    teamTwoPlayerTwo: '',
+    teamOnePlayerOne: 'Jordan',
+    teamOnePlayerTwo: 'Emma',
+    teamTwoPlayerOne: 'Mark',
+    teamTwoPlayerTwo: 'Carina',
     submitted: false,
   };
 
@@ -70,7 +71,7 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
   // TODO: refactor input into reusable component
   return (
     <KeyboardAwareScrollView style={styles.container}>
-      <View style={styles.groupingContainer}>
+      <Surface style={styles.surface}>
         <Subheading>Team 1</Subheading>
         <TextInput
           onChangeText={(text: string) =>
@@ -102,9 +103,9 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
         >
           Player name cannot be blank
         </HelperText>
-      </View>
+      </Surface>
 
-      <View style={styles.groupingContainer}>
+      <Surface style={styles.surface}>
         <Subheading>Team 2</Subheading>
         <TextInput
           onChangeText={(text: string) =>
@@ -136,7 +137,7 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
         >
           Player name cannot be blank
         </HelperText>
-      </View>
+      </Surface>
 
       <TouchableOpacity>
         <Button
@@ -154,10 +155,11 @@ const NewGameScreen: FunctionComponent<IProps> = (props: IProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
   },
-  groupingContainer: {
-    marginBottom: 40,
+  surface: {
+    padding: 10,
+    marginBottom: 10,
   },
   buttonContent: {
     height: 50,
