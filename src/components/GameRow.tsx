@@ -2,15 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { StyleSheet } from 'react-native';
 import { DataTable } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-// TODO: move to seperate file
-export enum Suit {
-  Spades,
-  Clubs,
-  Diamonds,
-  Hearts,
-  NoTrumps,
-}
+import { Suit } from '../enums/enums';
 
 interface IProps {
   bidAmount: number;

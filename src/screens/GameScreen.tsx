@@ -8,7 +8,8 @@ import {
   Theme,
   withTheme,
 } from 'react-native-paper';
-import GameRow, { Suit } from '../components/GameRow';
+import GameRow from '../components/GameRow';
+import { Suit } from '../enums/enums';
 
 interface IProps {
   theme: Theme;
