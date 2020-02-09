@@ -1,29 +1,28 @@
 import React, { useState, FunctionComponent } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Button, Dialog, Portal } from 'react-native-paper';
-import { Suit } from '../enums/enums';
+import { BidAmount } from '../enums/enums';
 
 interface IProps {
-  onSuitSelect(suit: Suit): void;
+  onBidAmountSelect(amount: BidAmount): void;
 }
 
-export const SuitMenu: FunctionComponent<IProps> = (props: IProps) => {
-  const { onSuitSelect } = props;
+export const BidAmountMenu: FunctionComponent<IProps> = (props: IProps) => {
+  const { onBidAmountSelect } = props;
 
   const [visible, setVisible] = useState<boolean>(false);
-  const [suit, setSuit] = useState<Suit>();
+  const [bidAmount, setBidAmount] = useState<BidAmount>();
 
-  const handleSuitSelect = (s: Suit) => () => {
+  const handleBidAmountSelect = (b: BidAmount) => () => {
     // close dialog
     setVisible(false);
 
     // set suit name for local display
-    setSuit(s);
+    setBidAmount(b);
 
     // callback
-    onSuitSelect(s);
+    onBidAmountSelect(b);
   };
-
   return (
     <View>
       <TouchableOpacity>
@@ -32,55 +31,43 @@ export const SuitMenu: FunctionComponent<IProps> = (props: IProps) => {
           mode="outlined"
           onPress={() => setVisible(true)}
         >
-          {suit || 'Suit'}
+          {bidAmount || 'Amount'}
         </Button>
       </TouchableOpacity>
 
       <Portal>
         <Dialog visible={visible} onDismiss={() => setVisible(false)}>
-          <Dialog.Title>Which suit was bidded?</Dialog.Title>
+          <Dialog.Title>How many tricks are in the bid?</Dialog.Title>
           <Dialog.Content>
             <Button
               style={styles.button}
-              onPress={handleSuitSelect(Suit.Spades)}
+              onPress={handleBidAmountSelect(BidAmount.Six)}
             >
-              Spades
+              6
             </Button>
             <Button
               style={styles.button}
-              onPress={handleSuitSelect(Suit.Clubs)}
+              onPress={handleBidAmountSelect(BidAmount.Seven)}
             >
-              Clubs
+              7
             </Button>
             <Button
               style={styles.button}
-              onPress={handleSuitSelect(Suit.Diamonds)}
+              onPress={handleBidAmountSelect(BidAmount.Eight)}
             >
-              Diamonds
+              8
             </Button>
             <Button
               style={styles.button}
-              onPress={handleSuitSelect(Suit.Hearts)}
+              onPress={handleBidAmountSelect(BidAmount.Nine)}
             >
-              Hearts
+              9
             </Button>
             <Button
               style={styles.button}
-              onPress={handleSuitSelect(Suit.NoTrumps)}
+              onPress={handleBidAmountSelect(BidAmount.Ten)}
             >
-              No Trumps
-            </Button>
-            <Button
-              style={styles.button}
-              onPress={handleSuitSelect(Suit.ClosedMisere)}
-            >
-              Closed Misere
-            </Button>
-            <Button
-              style={styles.button}
-              onPress={handleSuitSelect(Suit.OpenMisere)}
-            >
-              Open Misere
+              10
             </Button>
           </Dialog.Content>
         </Dialog>

@@ -12,6 +12,7 @@ import {
 import { IBid } from '../common/BidStore';
 import { TeamMenu } from '../components/TeamMenu';
 import { SuitMenu } from '../components/SuitMenu';
+import { BidAmountMenu } from '../components/BidAmountMenu';
 import { Suit, Team, BidAmount } from '../enums/enums';
 
 interface IProps {
@@ -62,12 +63,17 @@ const NewBidScreen: FunctionComponent<IProps> = (props: IProps) => {
     setBid({ ...bid, suit });
   };
 
+  const onBidAmountSelect = (amount: BidAmount) => {
+    setBid({ ...bid, amount });
+  };
+
   return (
     <View style={styles.container}>
       <Surface style={styles.surface}>
         <Subheading>Bid information</Subheading>
         <TeamMenu onTeamSelect={onTeamSelect} {...teamNames} />
         <SuitMenu onSuitSelect={onSuitSelect} />
+        <BidAmountMenu onBidAmountSelect={onBidAmountSelect} />
       </Surface>
 
       <Surface style={styles.surface}>

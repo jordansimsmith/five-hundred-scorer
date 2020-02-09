@@ -53,7 +53,7 @@ export const TeamMenu: FunctionComponent<IProps> = (props: IProps) => {
       </TouchableOpacity>
 
       <Portal>
-        <Dialog visible={visible}>
+        <Dialog visible={visible} onDismiss={() => setVisible(false)}>
           <Dialog.Title>Which team won the bid?</Dialog.Title>
           <Dialog.Content>
             <Button style={styles.button} onPress={handleTeamSelect(Team.One)}>
