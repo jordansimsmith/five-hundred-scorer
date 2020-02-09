@@ -1,5 +1,5 @@
 import React, { useState, FunctionComponent } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import {
   Button,
   DataTable,
@@ -77,24 +77,26 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
   return (
     <View style={styles.container}>
       <Surface style={styles.surface}>
-        <DataTable>
-          <DataTable.Header>
-            <DataTable.Title style={styles.tableCell}>
-              <Subheading>
-                {`${teamOnePlayerOne} & ${teamOnePlayerTwo}`}
-              </Subheading>
-            </DataTable.Title>
-            <DataTable.Title style={styles.tableCell}>
-              <Subheading>
-                {`${teamTwoPlayerOne} & ${teamTwoPlayerTwo}`}
-              </Subheading>
-            </DataTable.Title>
-          </DataTable.Header>
+        <ScrollView>
+          <DataTable>
+            <DataTable.Header>
+              <DataTable.Title style={styles.tableCell}>
+                <Subheading>
+                  {`${teamOnePlayerOne} & ${teamOnePlayerTwo}`}
+                </Subheading>
+              </DataTable.Title>
+              <DataTable.Title style={styles.tableCell}>
+                <Subheading>
+                  {`${teamTwoPlayerOne} & ${teamTwoPlayerTwo}`}
+                </Subheading>
+              </DataTable.Title>
+            </DataTable.Header>
 
-          {scoredBids.map((scoredBid: IScoredBid) => (
-            <GameRow key={scoredBid.id} {...scoredBid} />
-          ))}
-        </DataTable>
+            {scoredBids.map((scoredBid: IScoredBid) => (
+              <GameRow key={scoredBid.id} {...scoredBid} />
+            ))}
+          </DataTable>
+        </ScrollView>
       </Surface>
 
       <TouchableOpacity>
