@@ -11,8 +11,8 @@ import {
 } from 'react-native-paper';
 import { IBid } from '../common/BidStore';
 import { TeamMenu } from '../components/TeamMenu';
+import { SuitMenu } from '../components/SuitMenu';
 import { Suit, Team, BidAmount } from '../enums/enums';
-import { ITeamNames } from '../interfaces/interfaces';
 
 interface IProps {
   theme: Theme;
@@ -58,21 +58,16 @@ const NewBidScreen: FunctionComponent<IProps> = (props: IProps) => {
     setBid({ ...bid, team });
   };
 
+  const onSuitSelect = (suit: Suit) => {
+    setBid({ ...bid, suit });
+  };
+
   return (
     <View style={styles.container}>
       <Surface style={styles.surface}>
         <Subheading>Bid information</Subheading>
         <TeamMenu onTeamSelect={onTeamSelect} {...teamNames} />
-        <TouchableOpacity>
-          <Button style={styles.button} mode="outlined">
-            Suit
-          </Button>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Button style={styles.button} mode="outlined">
-            Amount
-          </Button>
-        </TouchableOpacity>
+        <SuitMenu onSuitSelect={onSuitSelect} />
       </Surface>
 
       <Surface style={styles.surface}>
