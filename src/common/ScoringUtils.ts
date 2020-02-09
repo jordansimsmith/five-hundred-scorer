@@ -32,7 +32,11 @@ export class ScoringUtils {
         }
 
         // modify bid loser's score
-        const bidLosersPointChange = this.getBidLosersTricks(bid) * 10;
+        const isMisere: boolean =
+          bid.suit === Suit.ClosedMisere || bid.suit === Suit.OpenMisere;
+        const bidLosersPointChange = isMisere
+          ? 0
+          : this.getBidLosersTricks(bid) * 10;
         if (bid.team === Team.One) {
           teamTwoScore += bidLosersPointChange;
         } else {
@@ -67,6 +71,12 @@ export class ScoringUtils {
   private getBidSuccess(bid: IBid): boolean {
     const tricksWon: number = this.getBidWinnersTricks(bid);
 
+    // misere case
+    if (bid.suit === Suit.ClosedMisere || bid.suit === Suit.OpenMisere) {
+      return tricksWon === 0;
+    }
+
+    // regular case
     return tricksWon >= bid.amount;
   }
 
