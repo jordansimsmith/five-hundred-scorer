@@ -11,6 +11,7 @@ import {
 import GameRow from '../components/GameRow';
 import { IBidStore, StaticBidStore } from '../common/BidStore';
 import { ScoringUtils, IScoredBid } from '../common/ScoringUtils';
+import GameWin from '../components/GameWin';
 
 interface IProps {
   theme: Theme;
@@ -39,6 +40,25 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
   // score all bids
   const scoringUtils = new ScoringUtils();
   const scoredBids: Array<IScoredBid> = scoringUtils.scoreBids(bids);
+
+  // returns 0 for game not ended, 1 for team one win, 2 for team two win
+  const gameEnded = () => {
+    const lastBid: IScoredBid = scoredBids[scoredBids.length - 1];
+
+    if (!lastBid) return 0;
+
+    if (lastBid.teamOneScore >= 500 || lastBid.teamTwoScore <= -500) {
+      // team one wins
+      return 1;
+    }
+    if (lastBid.teamTwoScore >= 500 || lastBid.teamOneScore <= -500) {
+      // team two wins
+      return 2;
+    } else {
+      // no winner
+      return 0;
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -72,6 +92,14 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
           New Bid
         </Button>
       </TouchableOpacity>
+
+      <GameWin
+        teamOnePlayerOne={teamOnePlayerOne}
+        teamOnePlayerTwo={teamOnePlayerTwo}
+        teamTwoPlayerOne={teamTwoPlayerOne}
+        teamTwoPlayerTwo={teamTwoPlayerTwo}
+        gameEnded={gameEnded()}
+      />
     </View>
   );
 };
