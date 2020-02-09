@@ -5,7 +5,6 @@ import { IScoredBid } from '../common/GameUtils';
 import { Team } from '../enums/enums';
 
 const GameRow: FunctionComponent<IScoredBid> = (props: IScoredBid) => {
-  // const { bidAmount, bidSuit, team, teamOnePoints, teamTwoPoints } = props;
   const { team, suit, amount, teamOneScore, teamTwoScore } = props;
 
   return (
