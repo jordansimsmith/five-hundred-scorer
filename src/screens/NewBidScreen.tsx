@@ -9,7 +9,7 @@ import {
   Theme,
   withTheme,
 } from 'react-native-paper';
-import { IBidStore, StaticBidStore, IBid } from '../common/BidStore';
+import { IBid } from '../common/BidStore';
 import { Suit, Team, BidAmount } from '../enums/enums';
 
 interface IProps {
@@ -29,7 +29,6 @@ const NewBidScreen: FunctionComponent<IProps> = (props: IProps) => {
     teamTwoTricks: 0,
   };
   const [bid, setBid] = useState<IBid>(emptyBid);
-  const bidStore: IBidStore = new StaticBidStore();
 
   const validateTricks = (): boolean => {
     // result is valid if totalTricks is 0 (no result) or 10
@@ -42,14 +41,11 @@ const NewBidScreen: FunctionComponent<IProps> = (props: IProps) => {
       return;
     }
 
-    // save to bid store
-    bidStore.createBid(bid);
+    // update bid list
+    route.params.onBidSave(bid);
 
     // clear fields
     setBid(emptyBid);
-
-    // refresh game page list
-    route.params.refreshBidList();
 
     // return to game page
     navigation.goBack();

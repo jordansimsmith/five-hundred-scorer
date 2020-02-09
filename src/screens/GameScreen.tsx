@@ -9,7 +9,7 @@ import {
   withTheme,
 } from 'react-native-paper';
 import GameRow from '../components/GameRow';
-import { IBidStore, StaticBidStore } from '../common/BidStore';
+import { IBid } from '../common/BidStore';
 import { ScoringUtils, IScoredBid } from '../common/ScoringUtils';
 import GameWin from '../components/GameWin';
 
@@ -17,6 +17,11 @@ interface IProps {
   theme: Theme;
   route: any; // TODO: typing
   navigation: any;
+}
+
+interface IState {
+  counter: number;
+  bids: Array<IBid>;
 }
 
 const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
@@ -29,22 +34,20 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
     teamTwoPlayerTwo,
   } = props.route.params;
 
-  // HACK: refreshes game list after bid is edited/created
-  const [state, setState] = useState({});
-  const refreshBidList = () => setState({});
+  const [state, setState] = useState<IState>({ counter: 0, bids: [] });
 
   // retrieve bids from store
-  const bidStore: IBidStore = new StaticBidStore();
-  const bids = bidStore.allBids();
+  // const bidStore: IBidStore = new StaticBidStore();
+  // const bids = bidStore.allBids();
 
   // score all bids
   const scoringUtils = new ScoringUtils();
-  const scoredBids: Array<IScoredBid> = scoringUtils.scoreBids(bids);
+  const scoredBids: Array<IScoredBid> = scoringUtils.scoreBids(state.bids);
 
   // returns 0 for game not ended, 1 for team one win, 2 for team two win
+  // TODO: refactor into common module
   const gameEnded = () => {
     const lastBid: IScoredBid = scoredBids[scoredBids.length - 1];
-
     if (!lastBid) return 0;
 
     if (lastBid.teamOneScore >= 500 || lastBid.teamTwoScore <= -500) {
@@ -58,6 +61,17 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
       // no winner
       return 0;
     }
+  };
+
+  // callback for adding a new bid from the new bid screen
+  const onBidSave = (bid: IBid) => {
+    const { counter, bids } = state;
+
+    // set id and append to bid list
+    bid.id = counter;
+    bids.push(bid);
+
+    setState({ counter: counter + 1, bids });
   };
 
   return (
@@ -77,7 +91,7 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
             </DataTable.Title>
           </DataTable.Header>
 
-          {scoredBids.map((scoredBid, i) => (
+          {scoredBids.map((scoredBid: IScoredBid) => (
             <GameRow key={scoredBid.id} {...scoredBid} />
           ))}
         </DataTable>
@@ -87,7 +101,7 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
         <Button
           style={styles.buttonContent}
           mode="contained"
-          onPress={() => navigation.navigate('NewBid', { refreshBidList })}
+          onPress={() => navigation.navigate('NewBid', { onBidSave })}
         >
           New Bid
         </Button>

@@ -23,16 +23,19 @@ const GameWin: FunctionComponent<IProps> = (props: IProps) => {
       ? `${teamOnePlayerOne} and ${teamOnePlayerTwo}`
       : `${teamTwoPlayerOne} and ${teamTwoPlayerTwo}`;
 
-  const [visible, setVisible] = useState<boolean>(gameEnded !== 0);
+  const [closed, setClosed] = useState<boolean>(false);
 
   return (
-    <Dialog visible={visible} onDismiss={() => setVisible(false)}>
+    <Dialog
+      visible={gameEnded !== 0 && !closed}
+      onDismiss={() => setClosed(true)}
+    >
       <Dialog.Title>Game Finished!</Dialog.Title>
       <Dialog.Content>
         <Paragraph>{`Congratulations to the winners ${winningTeamName}!`}</Paragraph>
       </Dialog.Content>
       <Dialog.Actions>
-        <Button onPress={() => setVisible(false)}>Close</Button>
+        <Button onPress={() => setClosed(true)}>Close</Button>
       </Dialog.Actions>
     </Dialog>
   );
