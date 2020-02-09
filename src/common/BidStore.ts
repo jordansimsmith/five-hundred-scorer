@@ -24,6 +24,7 @@ export class StaticBidStore implements IBidStore {
 
   public createBid(bid: IBid): number {
     const id: number = ++StaticBidStore.counter;
+    bid.id = id;
     StaticBidStore.bids.set(id, bid);
     return id;
   }

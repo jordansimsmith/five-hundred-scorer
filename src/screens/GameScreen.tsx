@@ -58,7 +58,7 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
           </DataTable.Header>
 
           {scoredBids.map((scoredBid, i) => (
-            <GameRow key={i} {...scoredBid} />
+            <GameRow key={scoredBid.id} {...scoredBid} />
           ))}
         </DataTable>
       </Surface>
