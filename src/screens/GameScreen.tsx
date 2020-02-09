@@ -12,6 +12,7 @@ import GameRow from '../components/GameRow';
 import { IBid } from '../common/BidStore';
 import { ScoringUtils, IScoredBid } from '../common/ScoringUtils';
 import GameWin from '../components/GameWin';
+import { ITeamNames } from '../interfaces/interfaces';
 
 interface IProps {
   theme: Theme;
@@ -27,12 +28,14 @@ interface IState {
 const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
   const { navigation } = props;
 
+  const teamNames: ITeamNames = props.route.params;
+
   const {
     teamOnePlayerOne,
     teamOnePlayerTwo,
     teamTwoPlayerOne,
     teamTwoPlayerTwo,
-  } = props.route.params;
+  } = teamNames;
 
   const [state, setState] = useState<IState>({ counter: 0, bids: [] });
 
@@ -43,7 +46,6 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
   // score all bids
   const scoringUtils = new ScoringUtils();
   const scoredBids: Array<IScoredBid> = scoringUtils.scoreBids(state.bids);
-
   // returns 0 for game not ended, 1 for team one win, 2 for team two win
   // TODO: refactor into common module
   const gameEnded = () => {
@@ -103,7 +105,9 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
         <Button
           style={styles.buttonContent}
           mode="contained"
-          onPress={() => navigation.navigate('NewBid', { onBidSave })}
+          onPress={() =>
+            navigation.navigate('NewBid', { onBidSave, teamNames })
+          }
         >
           New Bid
         </Button>

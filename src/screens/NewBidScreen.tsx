@@ -10,7 +10,9 @@ import {
   withTheme,
 } from 'react-native-paper';
 import { IBid } from '../common/BidStore';
+import { TeamMenu } from '../components/TeamMenu';
 import { Suit, Team, BidAmount } from '../enums/enums';
+import { ITeamNames } from '../interfaces/interfaces';
 
 interface IProps {
   theme: Theme;
@@ -20,6 +22,7 @@ interface IProps {
 
 const NewBidScreen: FunctionComponent<IProps> = (props: IProps) => {
   const { route, navigation } = props;
+  const { teamNames } = route.params;
   const emptyBid: IBid = {
     id: -1,
     team: Team.One,
@@ -51,15 +54,15 @@ const NewBidScreen: FunctionComponent<IProps> = (props: IProps) => {
     navigation.goBack();
   };
 
+  const onTeamSelect = (team: Team) => {
+    setBid({ ...bid, team });
+  };
+
   return (
     <View style={styles.container}>
       <Surface style={styles.surface}>
         <Subheading>Bid information</Subheading>
-        <TouchableOpacity>
-          <Button style={styles.button} mode="outlined">
-            Team
-          </Button>
-        </TouchableOpacity>
+        <TeamMenu onTeamSelect={onTeamSelect} {...teamNames} />
         <TouchableOpacity>
           <Button style={styles.button} mode="outlined">
             Suit
