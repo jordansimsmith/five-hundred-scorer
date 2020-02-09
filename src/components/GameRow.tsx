@@ -1,31 +1,23 @@
 import React, { FunctionComponent } from 'react';
 import { StyleSheet } from 'react-native';
 import { DataTable } from 'react-native-paper';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Suit } from '../enums/enums';
+import { IScoredBid } from '../common/GameUtils';
+import { Team } from '../enums/enums';
 
-interface IProps {
-  bidAmount: number;
-  bidSuit: Suit;
-  team: number;
-  teamOnePoints: number;
-  teamTwoPoints: number;
-  success: boolean;
-}
-
-const GameRow: FunctionComponent<IProps> = (props: IProps) => {
-  const { bidAmount, bidSuit, team, teamOnePoints, teamTwoPoints } = props;
+const GameRow: FunctionComponent<IScoredBid> = (props: IScoredBid) => {
+  // const { bidAmount, bidSuit, team, teamOnePoints, teamTwoPoints } = props;
+  const { team, suit, amount, teamOneScore, teamTwoScore } = props;
 
   return (
     <DataTable.Row>
       <DataTable.Cell style={styles.tableCell}>
-        {team === 1 && `${bidAmount} ${bidSuit}`}
+        {team === Team.One && `${amount} ${suit}`}
       </DataTable.Cell>
-      <DataTable.Cell style={styles.tableCell}>{teamOnePoints}</DataTable.Cell>
+      <DataTable.Cell style={styles.tableCell}>{teamOneScore}</DataTable.Cell>
       <DataTable.Cell style={styles.tableCell}>
-        {team === 2 && `${bidAmount} ${bidSuit}`}
+        {team === Team.Two && `${amount} ${suit}`}
       </DataTable.Cell>
-      <DataTable.Cell style={styles.tableCell}>{teamTwoPoints}</DataTable.Cell>
+      <DataTable.Cell style={styles.tableCell}>{teamTwoScore}</DataTable.Cell>
     </DataTable.Row>
   );
 };

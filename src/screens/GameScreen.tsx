@@ -9,8 +9,8 @@ import {
   withTheme,
 } from 'react-native-paper';
 import GameRow from '../components/GameRow';
-import { IBidStore, StaticBidStore, IBid } from '../common/BidStore';
-import { Suit } from '../enums/enums';
+import { IBidStore, StaticBidStore } from '../common/BidStore';
+import { ScoringUtils, IScoredBid } from '../common/ScoringUtils';
 
 interface IProps {
   theme: Theme;
@@ -28,22 +28,17 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
     teamTwoPlayerTwo,
   } = props.route.params;
 
-  const bids = [
-    {
-      bidAmount: 6,
-      bidSuit: Suit.Hearts,
-      team: 1,
-      teamOnePoints: 100,
-      teamTwoPoints: 40,
-      success: true,
-    },
-  ];
-
+  // HACK: refreshes game list after bid is edited/created
   const [state, setState] = useState({});
-  const bidStore: IBidStore = new StaticBidStore();
   const refreshBidList = () => setState({});
 
-  console.log(bidStore.allBids());
+  // retrieve bids from store
+  const bidStore: IBidStore = new StaticBidStore();
+  const bids = bidStore.allBids();
+
+  // score all bids
+  const scoringUtils = new ScoringUtils();
+  const scoredBids: Array<IScoredBid> = scoringUtils.scoreBids(bids);
 
   return (
     <View style={styles.container}>
@@ -62,8 +57,8 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
             </DataTable.Title>
           </DataTable.Header>
 
-          {bids.map((bid, i) => (
-            <GameRow key={i} {...bid} />
+          {scoredBids.map((scoredBid, i) => (
+            <GameRow key={i} {...scoredBid} />
           ))}
         </DataTable>
       </Surface>
