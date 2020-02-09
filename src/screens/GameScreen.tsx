@@ -13,6 +13,7 @@ import { IBid } from '../common/BidStore';
 import { ScoringUtils, IScoredBid } from '../common/ScoringUtils';
 import GameWin from '../components/GameWin';
 import { ITeamNames } from '../interfaces/interfaces';
+import { Team } from '../enums/enums';
 
 interface IProps {
   theme: Theme;
@@ -52,11 +53,17 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
     const lastBid: IScoredBid = scoredBids[scoredBids.length - 1];
     if (!lastBid) return 0;
 
-    if (lastBid.teamOneScore >= 500 || lastBid.teamTwoScore <= -500) {
+    if (
+      (lastBid.teamOneScore >= 500 && lastBid.team === Team.One) ||
+      lastBid.teamTwoScore <= -500
+    ) {
       // team one wins
       return 1;
     }
-    if (lastBid.teamTwoScore >= 500 || lastBid.teamOneScore <= -500) {
+    if (
+      (lastBid.teamTwoScore >= 500 && lastBid.team === Team.Two) ||
+      lastBid.teamOneScore <= -500
+    ) {
       // team two wins
       return 2;
     } else {
