@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { StyleSheet } from 'react-native';
 import { DataTable } from 'react-native-paper';
-import { IScoredBid } from '../common/GameUtils';
+import { IScoredBid } from '../interfaces/interfaces';
 import { Team } from '../enums/enums';
 
 const GameRow: FunctionComponent<IScoredBid> = (props: IScoredBid) => {

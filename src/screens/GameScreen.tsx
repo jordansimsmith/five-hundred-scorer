@@ -10,11 +10,10 @@ import {
 } from 'react-native-paper';
 import GameRow from '../components/GameRow';
 import { IBid } from '../common/BidStore';
-import { ScoringUtils, IScoredBid } from '../common/ScoringUtils';
+import { ScoringUtils } from '../common/ScoringUtils';
 import { GameUtils } from '../common/GameUtils';
 import GameWin from '../components/GameWin';
-import { ITeamNames } from '../interfaces/interfaces';
-import { Team } from '../enums/enums';
+import { IScoredBid, ITeamNames } from '../interfaces/interfaces';
 
 interface IProps {
   theme: Theme;

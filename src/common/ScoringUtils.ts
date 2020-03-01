@@ -1,10 +1,6 @@
 import { IBid } from './BidStore';
 import { Suit, Team, BidAmount } from '../enums/enums';
-
-export interface IScoredBid extends IBid {
-  teamOneScore: number;
-  teamTwoScore: number;
-}
+import { IScoredBid } from '../interfaces/interfaces';
 
 export class ScoringUtils {
   public scoreBids(bids: Array<IBid>): Array<IScoredBid> {

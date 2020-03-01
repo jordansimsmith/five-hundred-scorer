@@ -9,7 +9,7 @@ import {
   Theme,
   withTheme,
 } from 'react-native-paper';
-import { IBid } from '../common/BidStore';
+import { IBid } from '../interfaces/interfaces';
 import { TeamMenu } from '../components/TeamMenu';
 import { SuitMenu } from '../components/SuitMenu';
 import { BidAmountMenu } from '../components/BidAmountMenu';

@@ -1,4 +1,4 @@
-import { IScoredBid } from '../common/ScoringUtils';
+import { IScoredBid } from '../interfaces/interfaces';
 import { Team } from '../enums/enums';
 
 export class GameUtils {
