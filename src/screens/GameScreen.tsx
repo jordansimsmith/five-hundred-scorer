@@ -11,6 +11,7 @@ import {
 import GameRow from '../components/GameRow';
 import { IBid } from '../common/BidStore';
 import { ScoringUtils, IScoredBid } from '../common/ScoringUtils';
+import { GameUtils } from '../common/GameUtils';
 import GameWin from '../components/GameWin';
 import { ITeamNames } from '../interfaces/interfaces';
 import { Team } from '../enums/enums';
@@ -40,37 +41,11 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
 
   const [state, setState] = useState<IState>({ counter: 0, bids: [] });
 
-  // retrieve bids from store
-  // const bidStore: IBidStore = new StaticBidStore();
-  // const bids = bidStore.allBids();
-
   // score all bids
-  const scoringUtils = new ScoringUtils();
+  const scoringUtils: ScoringUtils = new ScoringUtils();
   const scoredBids: Array<IScoredBid> = scoringUtils.scoreBids(state.bids);
-  // returns 0 for game not ended, 1 for team one win, 2 for team two win
-  // TODO: refactor into common module
-  const gameEnded = () => {
-    const lastBid: IScoredBid = scoredBids[scoredBids.length - 1];
-    if (!lastBid) return 0;
 
-    if (
-      (lastBid.teamOneScore >= 500 && lastBid.team === Team.One) ||
-      lastBid.teamTwoScore <= -500
-    ) {
-      // team one wins
-      return 1;
-    }
-    if (
-      (lastBid.teamTwoScore >= 500 && lastBid.team === Team.Two) ||
-      lastBid.teamOneScore <= -500
-    ) {
-      // team two wins
-      return 2;
-    } else {
-      // no winner
-      return 0;
-    }
-  };
+  const gameUtils: GameUtils = new GameUtils();
 
   // callback for adding a new bid from the new bid screen
   const onBidSave = (bid: IBid) => {
@@ -125,7 +100,7 @@ const GameScreen: FunctionComponent<IProps> = (props: IProps) => {
         teamOnePlayerTwo={teamOnePlayerTwo}
         teamTwoPlayerOne={teamTwoPlayerOne}
         teamTwoPlayerTwo={teamTwoPlayerTwo}
-        gameEnded={gameEnded()}
+        gameEnded={gameUtils.gameEnded(scoredBids)}
       />
     </View>
   );
